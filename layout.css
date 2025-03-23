@@ -1,0 +1,51 @@
+/* Essential styles for layout */
+:root {
+    /* color-variables */
+    --aside-bg: #F4F4F4;
+    --main-bg: transparent;
+    --header-bg: #777;
+}   
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Navigation Bar */
+header {
+    background-color: var(--header-bg);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Main Layout */
+.container {
+    display: flex;
+    flex: 1;
+}
+
+/* Toolbar */
+aside {
+    width: 200px;
+    background-color: var(--aside-bg);
+    padding: 10px;
+}
+
+/* Content Area */
+main {
+    background-color: var(--main-bg);
+    flex: 1;
+    padding: 20px;
+}
