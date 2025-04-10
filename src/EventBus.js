@@ -43,6 +43,9 @@ class EventBus {
      */
     notify(event, data) {
         if (!this.subscribers[event]) return;
+        if (event.includes("error") && this.subscribers[event].length == 0) {
+            console.error("Unhandled error occured: ", data);
+        }
         this.subscribers[event].forEach(callback => callback(data));
     }
 }
