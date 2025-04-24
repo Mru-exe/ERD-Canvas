@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="main.js"></script>
-    <link rel="stylesheet" href="layout.css">
-    <link rel="icon" href="icon.svg">
     <title>ERD Canvas</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/editor.css">
+    <link rel="icon" href="icon.svg">
+    <!-- Fonts -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&display=swap">
+    <!-- Scripts -->
+    <script type="module" src="main.js"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -20,22 +27,25 @@
         </nav>
     </header>
 
+    <!-- Toolbar -->
     <div class="container">
-        <!-- Toolbar -->
         <aside>
-            <ul>
-                <li><a href="#">Option 1</a></li>
-                <li><a href="#">Option 2</a></li>
-                <li><a href="#">Option 3</a></li>
-            </ul>
+            <div id="editor-wrapper">
+                <div id="editor-gutter" data-linecount="1">
+                    <div class="line-number">1</div>
+                </div>
+                <div contenteditable spellcheck="false" class="code-editor" id="editor-input"></div>
+            </div>
         </aside>
 
         <!-- Main Content Area -->
         <main>
-            <section>
-                <h1>Welcome</h1>
-                <p>Content goes here...</p>
-             </section>
+            <div id="debug">
+
+            </div>
+            <canvas id="main-canvas">
+                
+            </canvas>
         </main>
     </div>
 </body>
