@@ -1,54 +1,109 @@
+//@ts-check
+
 /**
- * EventBus (Singleton)
- * Captures and emits custom events, using the observer design pattern.
+ * @class EventBus
+ * @description A singleton class that implements the observer pattern.
  */
 class EventBus {
+
     /**
-     * @returns {EventBus} The singleton instance of EventBus.
+     * @type {EventBus}
+     * @private
+     */
+    static instance;
+
+    /**
+     * @type {Map<string, Set<Function>>}
+     * @protected
+     */
+    subscribers = new Map();
+  
+    /**
+     * @returns {EventBus} The singleton instance.
+     */
+    static getInstance() {
+      if (!EventBus.instance) {
+        EventBus.instance = new EventBus()
+      }
+      return EventBus.instance
+    }
+
+    /**
+     * @constructor
+     * @private
+     * @description Private constructor to enforce singleton pattern.
      */
     constructor() {
-        if (!EventBus.instance) {
-            EventBus.instance = this;
-        }
-        this.subscribers = {}
-        return EventBus.instance;
-    }
-    
-    /**
-     * Subscribes to an event.
-     * @param {string} event - The event name.
-     * @param {function} callback - The callback function to be executed when the event is emitted.
-     */
-    subscribe(event, callback) {
-        if (!this.subscribers[event]) {
-            this.subscribers[event] = [];
-        }
-        this.subscribers[event].push(callback);
-    }
+      if(EventBus.instance) {
+        return EventBus.instance
+      }
+      Object.freeze(this);
 
+      EventBus.instance = this;
+      return this;
+    }
+  
     /**
-     * Unsubscribes from an event.
-     * @param {string} event - The event name.
-     * @param {function} callback - The callback function to be removed.
+     * @returns {Map<string, Set<Function>>} List of currently registered subscribers.
+     */
+    getSubscribers() {
+      return this.subscribers;
+    }
+  
+    /**
+     * Subscribe to an event.
+     * @param {string} event
+     * @param {Function} callback
+     * @description The callback function will be called with the event data when the event is emitted.
+     */
+    //Code is redudant for type safety
+    subscribe(event, callback) {;
+      if (!this.subscribers.has(event)) {
+        this.subscribers.set(event, new Set())
+      }
+      const set = this.subscribers.get(event)
+      if (set) {
+        set.add(callback)
+      } else {
+        console.error(`[EventBus] Failed to subscribe to event: ${event}`)
+      }
+    }
+  
+    /**
+     * Unsubscribe from an event.
+     * @param {string} event
+     * @param {Function} callback
      */
     unsubscribe(event, callback) {
-        if (!this.subscribers[event]) return;
-        this.subscribers[event] = this.subscribers[event].filter(cb => cb !== callback);
-    }
-
-    /**
-     * Emits an event, notifying all subscribers.
-     * @param {string} event - The event name.
-     * @param {any} data - The data to be passed to the subscribers.
-     */
-    notify(event, data) {
-        if (!this.subscribers[event]) return;
-        if (event.includes("error") && this.subscribers[event].length == 0) {
-            console.error("Unhandled error occured: ", data);
+      const set = this.subscribers.get(event)
+      if (set) {
+        set.delete(callback)
+        if (set.size === 0) {
+          this.subscribers.delete(event)
         }
-        this.subscribers[event].forEach(callback => callback(data));
+      }
     }
-}
-
-const instance = new EventBus();
-export default instance;
+  
+    /**
+     * Emit an event to all subscribers.
+     * @param {string} event
+     * @param {*} data
+      */
+    notify(event, data) {
+      // console.warn(`[EventBus] notify: ${event}`, data)
+      const set = this.subscribers.get(event);
+      if (!set || set.size === 0) {
+        if (event.toLowerCase().includes('error')) {
+          console.error(`[EventBus] Unhandled error occurred:`, data)
+        }
+        return
+      }
+      for (const callback of set) {
+        callback(data)
+      }
+    }
+  }
+  
+  // Export the frozen singleton instance
+  // const Bus = EventBus.getInstance()
+  export default EventBus.getInstance()
