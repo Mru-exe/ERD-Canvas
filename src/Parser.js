@@ -17,11 +17,24 @@ export default class Parser extends DBMLParser {
     }
 
     /**
+     * Sanitizes user input
+     * @description Removes extra spaces, trims the input and splits it into lines
+     * @returns {string} sanitized input
+     * @param {string} input
+     * @private
+     */
+    saniziteInput(input) {
+        input = input.split('\n').map(line => line.trim()).join('\n');
+        return input;
+    }
+
+    /**
      * Converts user input (expected to be DBML) to JSON object
      * @param {string} input User input expected to be DBML
      * @returns JSON representation of the database
      */
     parseDatabase(input) {
+        input = this.saniziteInput(input);
         const parsed = super.parse(input, 'dbmlv2');
         return this.exportToJson(parsed);
 
