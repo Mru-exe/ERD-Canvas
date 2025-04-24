@@ -11,14 +11,17 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    max-height: 100vh;
 }
 
 /* Navigation Bar */
 header {
+    box-sizing: border-box;
     background-color: var(--header-bg);
     color: white;
-    padding: 10px;
+    padding: 1vh;
     text-align: center;
+    max-height: 5vh;
 }
 
 header nav ul {
@@ -33,14 +36,18 @@ header nav ul {
 /* Main Layout */
 .container {
     display: flex;
-    flex: 1;
+    flex: 1;;
+    /* align-items: stretch; */
+    /* max-height: 100%; */
 }
 
 /* Toolbar */
 aside {
+    box-sizing: border-box;
     width: 200px;
     background-color: var(--aside-bg);
-    padding: 10px;
+    /* padding: 10px; */
+    overflow: scroll;
 }
 
 /* Content Area */
