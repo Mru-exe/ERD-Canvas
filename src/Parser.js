@@ -14,6 +14,24 @@ export default class Parser extends DBMLParser {
     constructor(eventBus) {
         super();
         this.eventBus = eventBus;
+        this.setupListeners();
+    }
+
+    /**
+     * Sets up event listeners for the parser
+     * @private
+     */
+    setupListeners(){
+        this.eventBus.subscribe('inputChanged', (input) => {
+            try {
+                const sanitizedInput = this.saniziteInput(input);
+                const dbml = this.parseDatabase(sanitizedInput);
+                const json = this.exportToJson(dbml);
+                this.eventBus.notify('parseSuccess', json);
+            } catch (error) {
+                this.eventBus.notify('parseError', error);
+            }
+        })
     }
 
     /**
@@ -29,21 +47,21 @@ export default class Parser extends DBMLParser {
     }
 
     /**
-     * Converts user input (expected to be DBML) to JSON object
-     * @param {string} input User input expected to be DBML
-     * @returns JSON representation of the database
+     * Converts user input to DBML text
+     * @param {string} input User input 
+     * @returns DBML representation of the database
+     * @private
      */
     parseDatabase(input) {
-        input = this.saniziteInput(input);
         const parsed = super.parse(input, 'dbmlv2');
-        return this.exportToJson(parsed);
-
+        return parsed;
     }
 
     /**
      * Converts DBML to JSON format
      * @param {string} dbml representation of the database in DBML format
      * @returns JSON object of the database
+     * @private
      */
     exportToJson(dbml) {
         const json = ModelExporter.export(dbml, 'json', false);
