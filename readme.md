@@ -3,6 +3,8 @@
 
 **ERD Canvas** je single-page aplikace pro rychlé a intuitivní vytváření Entity-Relationship Diagramů (ERD) přímo v prohlížeči.
 
+Demo aplikace je nasazeno pomocí [Github Pages](https://dev.kindl.cz/ERD-Canvas/).
+
 
 ## Hlavní funkce
 
