@@ -12,6 +12,7 @@ export default class AppView extends App {
      * @returns {string} HTML template for the application view
      */
     render() {
+        const onlineStatus = navigator.onLine ? 'true' : 'false';
         const template = `
         <aside>
             <div class="editor" id="editor-container">
@@ -19,7 +20,7 @@ export default class AppView extends App {
                 <textarea class="editor" id="editor-input" spellcheck="false"></textarea>
             </div>
             <div id="aside-footer">
-                <span id="online-status" data-online="true"></span>
+                <span id="online-status" data-online="${onlineStatus}"></span>
                 <span id="editor-status"></span>
             </div>
         </aside>

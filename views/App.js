@@ -36,12 +36,12 @@ export default class App {
     }
 
     window.addEventListener("online", () => {
-      //@ts-ignore
-      document.getElementById("online-status").setAttribute("data-online", "true");
+      const statusElement = document.getElementById("online-status");
+      if (statusElement) statusElement.setAttribute("data-online", "true"); return;
     });
     window.addEventListener("offline", () => {
-      //@ts-ignore
-      document.getElementById("online-status").setAttribute("data-online", "false");
+      const statusElement = document.getElementById("online-status");
+      if (statusElement) statusElement.setAttribute("data-online", "false"); return;
     });
   }
 
