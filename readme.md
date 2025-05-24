@@ -3,40 +3,47 @@
 
 **ERD Canvas** je single-page aplikace pro rychlé a intuitivní vytváření Entity-Relationship Diagramů (ERD) přímo v prohlížeči.
 
-Demo aplikace je nasazeno pomocí [Github Pages](https://dev.kindl.cz/ERD-Canvas/).
+ **Demo aplikace je nasazeno pomocí [Github Pages](https://dev.kindl.cz/ERD-Canvas/).**
+
+
+## 📝 Obsah dokumentace
+
+1. [Přehled](#přehled)
+2. [Hlavní funkce](#hlavní-funkce)
+3. [Použití](#použití)
+4. [Příklady](#příklady)
+
+## Přehled
+ERD Canvas umožňuje psát databázové schéma v jednoduchém textovém formátu DBML a zároveň ho vizualizovat jako interaktivní ERD. Díky tomu není potřeba instalovat žádný desktopový nástroj nebo dokonce mít připojení k internetu pro tvorbu a prohlížení diagramu.
 
 
 ## Hlavní funkce
 
-- **Hash-based SPA routing**  
-  Navigace mezi domovskou stránkou a editorem diagramů bez plného reloadu stránky pomocí hash routeru.
-
-- **Editor DBML**  
-  Textové pole s číslováním řádků, kde uživatel píše DBML popis databáze.  
-  – Zpožděné parsování (debounce 400 ms)  
-  – Vyznačení řádků se syntaktickou chybou a jejich celkový počet
-
-- **Online/offline stav**  
-  Indikátor „Online/Offline“ v patičce editoru pomocí `navigator.onLine` a  eventů.
-
-- **Live rendering ERD**   
-  Renderování v reálném čase.
-
-- **Manipulace s diagramem**  
-  Uživatel může plátno libovolně zoomovat či přesouvat entity pouhým tažením myši.
-
-- **Ukládání stavu**  
-  Po každé úspěšné změně se uloží stav do `localStorage`, a to včetně užovatelského inputu, tak odpovídající JSON struktuře.
-
-- **Offline podpora**  
-  Pomocí `ServiceWorker` se aplikace cachuje. Uživatel tak může po prvotní návštěvě používat aplikaci i offline.
+- **Hash-based SPA routing**
+  - Navigace mezi domovskou stránkou a editorem bez nutnosti plného reloadu.
+- **Editor DBML**
+  - Textové pole s číslováním řádků.
+  - Debounce parsování (400 ms) pro plynulé psaní.
+  - Zvýraznění a počítání syntaktických chyb.
+- **Live rendering ERD**
+  - Diagram se aktualizuje při změně DBML v reálném čase.
+- **Manipulace s diagramem**
+  - Zoom in/out, drag & pan myší.
+- **Ukládání stavu**
+  - Stav editoru a JSON struktury se po každé validní změně ukládá do `localStorage`.
+- **Online/offline stav**
+  - Indikátor v patičce využívá `navigator.onLine` a navázané eventy.
+- **Offline podpora**
+  - Aplikace je cachovaná přes `ServiceWorker`, takže funguje i bez připojení.
 
 
-## Jak to funuguje
-Jako uživateslký vstup, se očekává řetězec ve formátu DBML ([Database Markup Language](https://dbml.dbdiagram.io/home)). Aplikace se ho následně pokusí převést do objektového formátu, pokud to proběhne úšpěšně
 
-#### Například:
-Následující DBML řetězec:
+## Použití
+Aplikace se odvijí od uživateslkého vstupu v reálném čase. Jako takový stup se očekává řetězec ve formátu DBML ([Database Markup Language](https://dbml.dbdiagram.io/home)). Jakýkoliv takový vstup, se nejprve zvaliduje, pokud validace neproběhne úspěšně, uživateli se zvýrazní číslo řádků (nejen jednoho) který chybu způsobil. Pokud validace proběhla úspěšně, aplikace řetězec zpracuje, a okamžitě ho vykreslí na plátno.
+
+## Příklady
+
+### 1. Platný DBML řetězec a jeho korespondující diagram.
 ```
 Table users {
   id integer
@@ -46,16 +53,21 @@ Table users {
 }
 
 Table posts {
-  id integer [primary key]
+  id integer PK
   title varchar
-  body text [note: 'Content of the post']
+  body text
   user_id integer
   created_at timestamp
 }
 
-Ref: posts.user_id > users.id // many-to-one
+Ref: posts.user_id > users.id // '>' reprezentuje kardinalitu (N:1)
 ```
+![Příklad diagramu](exampleValid.png)
 
-Odpovídá následujícímu diagramu:
+---
+### 2. Neplatný řetězec, a zvýraznění chyb
+Řetězec níže má hned 2 chyby:
+- Název atributu "display name" obsahuje mezeru
+- Pro ukončení definice tabulky byla použita špatná závarka **')'** místo **'}'**
 
-![Příklad diagramu](example.png)
+![alt text](exampleInvalid.png)
