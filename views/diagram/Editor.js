@@ -43,12 +43,12 @@ export default class Editor {
   }
 
   setInput(input) {
-    this.input.innerText = input;
+    this.input.value = input;
     this.updateLineNumbers();
   }
 
   getInput() {
-    return this.input.innerText;
+    return this.input.value;
   }
 
   updateLineNumbers() {
@@ -112,12 +112,10 @@ export default class Editor {
     const errLines = new Set();
     //@ts-ignore
     error.diags.forEach(element => {
-      console.log(element.location.start.line);
       errLines.add(
         document.querySelector(`.line-number[data-linenumber="${element.location.start.line}"]`),
       );
     });
-    console.log(errLines);
     errLines.forEach(element => {
       element.classList.add('error-line');
     })

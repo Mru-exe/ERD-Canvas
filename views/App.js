@@ -43,7 +43,6 @@ export default class App {
    * @param {HTMLElement} diagramContainerId - The container for the diagram.
    */
   run(diagramContainerId) {
-    console.log("running application");
     this.editor = new Editor(EventBus);
     this.diagramContainer = document.getElementById("diagram-container");
 
@@ -64,7 +63,6 @@ export default class App {
    */
   loadAppState(state) {
     if (state.input == "" || state.database.schemas == null) return;
-    console.log("loading from app state");
     this.state = state;
     this.editor.setInput(state.input);
     this.plotDatabase(state.database);
