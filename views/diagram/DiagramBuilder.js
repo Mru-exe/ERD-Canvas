@@ -271,19 +271,18 @@ export default class DiagramBuilder {
     line.setAttribute("y1", p1.y.toString());
     line.setAttribute("x2", p2.x.toString());
     line.setAttribute("y2", p2.y.toString());
-    line.setAttribute("stroke", "#bbb");
+    line.setAttribute("stroke", "#eef0f2");
     parentGroup.appendChild(line);
 
     const txt = document.createElementNS(SVG_NS, "text");
     txt.setAttribute("x", ((p1.x + p2.x) / 2).toString());
     txt.setAttribute("y", ((p1.y + p2.y) / 2 - 5).toString());
     txt.setAttribute("font-size", "14");
-    txt.setAttribute("fill", "#444");
+    txt.setAttribute("fill", "#50ff90");
     txt.textContent =
       p1.x < p2.x
         ? `${cardinalityTo} : ${cardinalityFrom}`
         : `${cardinalityFrom} : ${cardinalityTo}`;
-    console.log(p1.x > p2.x);
     parentGroup.appendChild(txt);
 
     return { lineEl: line, textEl: txt };
