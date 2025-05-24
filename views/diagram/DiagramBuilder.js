@@ -71,7 +71,7 @@ export default class DiagramBuilder {
       svg.setAttribute("id", this.svgId);
       svg.setAttribute("tabindex", 0);
       container.appendChild(svg);
-      svg.addEventListener("wheel", this._onWheel.bind(this));
+      svg.addEventListener("wheel", this.onWheel.bind(this), { passive: true });
     }
     svg.setAttribute("width", this.width);
     svg.setAttribute("height", this.height);
@@ -85,13 +85,13 @@ export default class DiagramBuilder {
       svg.appendChild(content);
     }
 
-    this._autoLayoutTables();
+    this.autoLayoutTables();
 
     while (content.firstChild) content.removeChild(content.firstChild);
 
     this.tables.forEach((tb) => {
       const g = tb._render(content);
-      this._makeDraggable(g, tb);
+      this.makeDraggable(g, tb);
       g.classList.add("svg-table");
     });
 
@@ -103,8 +103,7 @@ export default class DiagramBuilder {
     });
   }
 
-  _onWheel(evt) {
-    evt.preventDefault();
+  onWheel(evt) {
     const factor = evt.deltaY < 0 ? 1.1 : 0.9;
     this.zoomLevel *= factor;
     const content = document.querySelector(
@@ -114,7 +113,7 @@ export default class DiagramBuilder {
     content.setAttribute("transform", `scale(${this.zoomLevel})`);
   }
 
-  _makeDraggable(g, tableBuilder) {
+  makeDraggable(g, tableBuilder) {
     let isDown = false,
     pt = null,
     orig = null;
@@ -157,7 +156,7 @@ export default class DiagramBuilder {
     });
   }
 
-  _autoLayoutTables() {
+  autoLayoutTables() {
     const marginX = 20,
       marginY = 20,
       hGap = 40,

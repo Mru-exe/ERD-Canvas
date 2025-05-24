@@ -32,9 +32,7 @@ export default class App {
     //load saved state from local storage
     const savedState = localStorage.getItem("appState");
     if (savedState != null) {
-      console.log("found saved state in local storage: ");
       this.appState = JSON.parse(savedState);
-      console.log(this.appState);
     }
   }
 
@@ -93,7 +91,6 @@ export default class App {
    * @private
    */
   plotDatabase(data) {
-    console.log(data);
     if (data.schemas == null) return;
     const builder = DiagramBuilder.create(
       this.diagramContainer.clientWidth,
