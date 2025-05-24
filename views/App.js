@@ -34,6 +34,15 @@ export default class App {
     if (savedState != null) {
       this.appState = JSON.parse(savedState);
     }
+
+    window.addEventListener("online", () => {
+      //@ts-ignore
+      document.getElementById("online-status").setAttribute("data-online", "true");
+    });
+    window.addEventListener("offline", () => {
+      //@ts-ignore
+      document.getElementById("online-status").setAttribute("data-online", "false");
+    });
   }
 
   /**

@@ -99,6 +99,12 @@ export default class Editor {
         this.eventBus.notify('inputChanged', this.input.value);
       }, 400);
     });
+
+    EventBus.subscribe('parseSuccess', () => {
+      const el = document.getElementById('editor-status');
+      //@ts-ignore
+      el.textContent = '';
+    });
   }
 
   /**
@@ -119,5 +125,9 @@ export default class Editor {
     errLines.forEach(element => {
       element.classList.add('error-line');
     })
+
+    const el = document.getElementById('editor-status');
+    if(!el) return;
+    el.textContent = errLines.size + ' syntaxs error detected.';
   }
 }

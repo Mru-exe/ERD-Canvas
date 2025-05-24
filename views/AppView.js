@@ -18,6 +18,10 @@ export default class AppView extends App {
                 <div class="editor" id="editor-gutter"></div>
                 <textarea class="editor" id="editor-input" spellcheck="false"></textarea>
             </div>
+            <div id="aside-footer">
+                <span id="online-status" data-online="true"></span>
+                <span id="editor-status"></span>
+            </div>
         </aside>
         <main>
             <div id="diagram-container">
@@ -32,7 +36,7 @@ export default class AppView extends App {
         if(navigator.onLine) {
             super.run();
         } else {
-            this.container.innerHTML = `Unavailable in offline mode. Please connect to the internet.`;
+            // this.container.innerHTML = `Unavailable in offline mode. Please connect to the internet.`;
         }
     }
 }
