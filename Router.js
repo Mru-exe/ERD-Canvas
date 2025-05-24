@@ -1,6 +1,6 @@
 /**
- * SPA Router Class
- * Handles navigation, lazy loading of components, and history management.
+ * Hash-based SPA Router Class
+ * Handles navigation, lazy loading of components, and hashchange history management.
  * @module Router
  */
 export default class Router {
@@ -9,54 +9,58 @@ export default class Router {
     this.routes = routes;
     this.instances = new Map();
     this.handleLinkClicks = this.handleLinkClicks.bind(this);
-    this.handlePopState = this.handlePopState.bind(this);
+    this.handleHashChange = this.handleHashChange.bind(this);
   }
 
   start() {
+    // Delegate all link clicks to our handler
     document.body.addEventListener("click", this.handleLinkClicks);
-    window.addEventListener("popstate", this.handlePopState);
-    this.navigateTo(window.location.pathname, { replace: true });
+    // Listen for hash changes
+    window.addEventListener("hashchange", this.handleHashChange);
+    // Trigger initial navigation
+    this.loadCurrentRoute();
   }
 
-  async handleLinkClicks(e) {
+  handleLinkClicks(e) {
     const a = e.target.closest("a");
     if (
       !a ||
       a.target ||
       a.hasAttribute("download") ||
       a.origin !== window.location.origin
-    )
-      return;
-    e.preventDefault();
-    const path = new URL(a.href).pathname;
-    this.navigateTo(path);
+    ) return;
+
+    const href = a.getAttribute("href");
+    // Only intercept internal hash links, e.g. href="/foo" or href="#/foo"
+    if (href.startsWith("#") || href.startsWith("/")) {
+      e.preventDefault();
+      // Normalize to hash format
+      const path = href.startsWith("#") ? href.slice(1) : href;
+      window.location.hash = path;
+    }
   }
 
-  handlePopState(e) {
-    const path = e.state?.path || window.location.pathname;
-    this.navigateTo(path, { replace: true, useState: false });
+  handleHashChange() {
+    this.loadCurrentRoute();
   }
 
   showSpinner() {
-    //Spinner while async component is loading
     this.rootEl.innerHTML = `<div class="router-spinner"></div>`;
   }
 
-  async navigateTo(path, { replace = false, useState = true } = {}) {
+  async loadCurrentRoute() {
+    // Extract the path from the hash, default to '/'
+    const hash = window.location.hash || "#/";
+    const path = hash.slice(1);
     const routeLoader = this.matchRoute(path);
+
     if (!routeLoader) {
       this.renderNotFound();
       return;
     }
 
-    if (useState) {
-      const method = replace ? "replaceState" : "pushState";
-      window.history[method]({ path }, "", path);
-    }
-
     this.showSpinner();
 
-    // Lazy-load or reuse component
     let page = this.instances.get(path);
     if (!page) {
       try {
@@ -71,7 +75,7 @@ export default class Router {
       }
     }
 
-    // Render the page
+    // Render the page into root
     this.rootEl.innerHTML = page.render();
 
     // Post-render hooks
