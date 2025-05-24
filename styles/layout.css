@@ -126,7 +126,7 @@ div.centered-container {
 .card {
   background: var(--contrast-grey);
   color: var(--antiflash-white);
-  
+
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
@@ -217,5 +217,51 @@ div.centered-container {
   }
   100% {
     transform: scaleX(1) scaleY(1);
+  }
+}
+
+/* --- PRINT: hide header --- */
+@media print {
+  header {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  #root-container > aside,
+  #root-container > main > * {
+    display: none;
+  }
+  #root-container > main {
+    display: block;
+    background: var(--contrast-grey);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    height: 50%;
+    margin-top: 2em;
+    padding: 2em;
+    flex-grow: 1;
+}
+#root-container > main::after{
+    color: var(--contrast-green);
+    font-size: 1.6em;
+    font-weight: 600;
+    content: "Device is too small to display the editor.";
+  }
+
+  .card {
+    width: 100%;
+    text-overflow: ellipsis;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  header {
+    height: auto;
+    padding: 0.5rem;
+  }
+
+  header a {
+    font-size: 0.9rem;
   }
 }
