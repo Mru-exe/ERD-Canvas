@@ -38,12 +38,17 @@ ERD Canvas umožňuje psát databázové schéma v jednoduchém textovém formá
 
 
 
+<<<<<<< HEAD
 ## Použití
 Aplikace se odvijí od uživateslkého vstupu v reálném čase. Jako takový stup se očekává řetězec ve formátu DBML ([Database Markup Language](https://dbml.dbdiagram.io/home)). Jakýkoliv takový vstup, se nejprve zvaliduje, pokud validace neproběhne úspěšně, uživateli se zvýrazní číslo řádků (nejen jednoho) který chybu způsobil. Pokud validace proběhla úspěšně, aplikace řetězec zpracuje, a okamžitě ho vykreslí na plátno.
 
 ## Příklady
 
 ### 1. Platný DBML řetězec a jeho korespondující diagram.
+=======
+#### Příklad:
+Následující DBML řetězec:
+>>>>>>> origin/main
 ```
 Table users {
   id integer
@@ -70,4 +75,8 @@ Ref: posts.user_id > users.id // '>' reprezentuje kardinalitu (N:1)
 - Název atributu "display name" obsahuje mezeru
 - Pro ukončení definice tabulky byla použita špatná závarka **')'** místo **'}'**
 
+<<<<<<< HEAD
 ![alt text](exampleInvalid.png)
+=======
+![Příklad diagramu](example.png)
+>>>>>>> origin/main
