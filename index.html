@@ -7,46 +7,24 @@
     <!-- Styles -->
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/editor.css">
-    <link rel="icon" href="icon.svg">
-    <!-- Fonts -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="icon" href="assets/svg-icon.svg">
     <!-- Scripts -->
-    <script type="module" src="main.js"></script>
+    <script type="module" src="index.js"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <header>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/" data-link>About</a></li>
+                <li><a href="/diagram" data-link>Try it</a></li>
+                <li><a target="_blank" href="https://github.com/Mru-exe/ERD-Canvas">GitHub</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Toolbar -->
-    <div class="container">
-        <aside>
-            <div id="editor-wrapper">
-                <div id="editor-gutter" data-linecount="1">
-                    <div class="line-number">1</div>
-                </div>
-                <div contenteditable spellcheck="false" class="code-editor" id="editor-input"></div>
-            </div>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main>
-            <div id="debug">
-
-            </div>
-            <canvas id="main-canvas">
-                
-            </canvas>
-        </main>
+    <!-- Content -->
+    <div id="root-container">
     </div>
 </body>
 </html>
