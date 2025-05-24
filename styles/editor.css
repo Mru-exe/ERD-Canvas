@@ -1,49 +1,53 @@
 .editor {
-    font-family: monospace;
-    font-size: 1.1em;
+  font-family: monospace;
+  font-size: 1.1em;
 }
 
 #editor-container {
-    overflow: hidden;
-    display: flex;
-    height: 100%;
-    max-height: 100%;
-    background-color: var(--secondary-grey);
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  max-height: 100%;
+  background-color: var(--secondary-grey);
 }
 
 #editor-gutter {
-    height: 100%;
-    background-color: var(--secondary-grey);
+  height: 100%;
+  background-color: var(--secondary-grey);
 
-    border-right: 2px solid var(--secondary-grey-highlight);
+  border-right: 2px solid var(--secondary-grey-highlight);
 
-    text-align: right;
-    width: 2em;
-    overflow-y: inherit;
-    padding: 2px;
+  text-align: right;
+  width: 2em;
+  overflow-y: inherit;
+  padding: 2px;
 }
 
 .line-number {
-    height: 1.5em;
-    color: #5A5B5C;
+  height: 1.5em;
+  color: #5a5b5c;
 }
 
 #editor-input {
-    background-color: transparent;
-    height: 100%;
-    overflow-x: scroll;
+  background-color: transparent;
+  height: 100%;
+  overflow-x: scroll;
 
-    line-height: 1.5em;
-    flex-grow: 1;
-    resize: none;
+  line-height: 1.5em;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  resize: none;
 
-    color: var(--antiflash-white);
+  color: var(--antiflash-white);
 
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 
 .error-line {
-    color: #EE5040;
-    font-weight: bold;
+  color: #ee5040;
+  font-weight: bold;
 }
