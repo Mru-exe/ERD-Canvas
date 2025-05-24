@@ -4,6 +4,10 @@ import Editor from "./diagram/Editor.js";
 import Parser from "./diagram/Parser.js";
 import DiagramBuilder from "./diagram/DiagramBuilder.js";
 
+/**
+ * AppClass manages the application state and handles the interaction between the editor, parser, and diagram builder.
+ * @module App
+ */
 export default class App {
   /**
    * @type {Editor}
