@@ -1,4 +1,4 @@
-import { Router } from './Router.js';
+import Router from './Router.js';
 
 const routes = {
     '/': () => import('./views/LandingView.js'),
