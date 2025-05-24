@@ -35,7 +35,7 @@ Demo aplikace je nasazeno pomocí [Github Pages](https://dev.kindl.cz/ERD-Canvas
 ## Jak to funuguje
 Jako uživateslký vstup, se očekává řetězec ve formátu DBML ([Database Markup Language](https://dbml.dbdiagram.io/home)). Aplikace se ho následně pokusí převést do objektového formátu, pokud to proběhne úšpěšně
 
-#### Například:
+#### Příklad:
 Následující DBML řetězec:
 ```
 Table users {
