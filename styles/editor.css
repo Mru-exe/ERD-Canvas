@@ -42,3 +42,8 @@
     border: none;
     outline: none;
 }
+
+.error-line {
+    color: #EE5040;
+    font-weight: bold;
+}
